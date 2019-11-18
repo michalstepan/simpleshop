@@ -1,7 +1,7 @@
-package com.michalstepan.simpleshop;
+package com.michalstepan.simpleshop.api;
 
-import com.michalstepan.simpleshop.domain.Order;
 import com.michalstepan.simpleshop.domain.Product;
+import com.michalstepan.simpleshop.domain.dto.PlaceOrderDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
-public class OrderTests {
+public class OrderApiTests {
 
     private MockMvc mockMvc;
 
@@ -43,7 +43,7 @@ public class OrderTests {
         final long secondProductId = createAndTestProductAdd("nike shoes", 600);
         final long thirdProductId = createAndTestProductAdd("rebook laces", 60);
 
-        final Order order = new Order();
+        final PlaceOrderDTO order = new PlaceOrderDTO();
         order.setBuyerEmail("michalstepan92@gmail.com");
         order.setProducts(List.of(firstProductId, secondProductId, thirdProductId));
 

@@ -1,4 +1,4 @@
-package com.michalstepan.simpleshop;
+package com.michalstepan.simpleshop.api;
 
 import com.michalstepan.simpleshop.domain.Product;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
-public class ProductTests {
+public class ProductApiTests {
 
     private MockMvc mockMvc;
 

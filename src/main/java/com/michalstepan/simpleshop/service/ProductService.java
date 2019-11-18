@@ -5,6 +5,7 @@ import com.michalstepan.simpleshop.domain.entity.ProductEntity;
 import com.michalstepan.simpleshop.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,23 +24,27 @@ public class ProductService {
         return new Product(pe.getId(), pe.getName(), pe.getPrice());
     }
 
+    @Transactional
     public long create(Product product) {
         ProductEntity saved = productRepository.save(new ProductEntity(product.getName(), product.getPrice()));
         return saved.getId();
     }
 
+    @Transactional
     public List<Product> getAll() {
         return productRepository.findAll().stream()
                 .map(ProductService::transform)
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public void update(Product product) {
         ProductEntity productEntity = findByIdRaw(product.getId());
         productEntity.setPrice(product.getPrice());
         productRepository.save(productEntity);
     }
 
+    @Transactional
     public ProductEntity findByIdRaw(Long id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product with id " + id + " does not exists"));

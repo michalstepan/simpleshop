@@ -1,7 +1,8 @@
 package com.michalstepan.simpleshop.controller;
 
 import com.michalstepan.simpleshop.domain.Order;
-import com.michalstepan.simpleshop.domain.validations.OrderPlaceValidation;
+import com.michalstepan.simpleshop.domain.dto.PlaceOrderDTO;
+import com.michalstepan.simpleshop.domain.validations.PlaceOrderValidation;
 import com.michalstepan.simpleshop.service.OrderService;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class OrderController {
     }
 
     @PostMapping(value = "place")
-    public long placeOrder(@Validated(OrderPlaceValidation.class) @RequestBody Order order) {
+    public Order placeOrder(@Validated(PlaceOrderValidation.class) @RequestBody PlaceOrderDTO order) {
         return orderService.placeOrder(order);
     }
 

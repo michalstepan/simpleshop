@@ -1,12 +1,14 @@
 package com.michalstepan.simpleshop.service;
 
 import com.michalstepan.simpleshop.domain.Order;
+import com.michalstepan.simpleshop.domain.dto.PlaceOrderDTO;
 import com.michalstepan.simpleshop.domain.entity.OrderEntity;
 import com.michalstepan.simpleshop.domain.entity.OrderItemEntity;
 import com.michalstepan.simpleshop.repository.OrderRepository;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,7 +26,8 @@ public class OrderService {
         this.productService = productService;
     }
 
-    public long placeOrder(Order order) {
+    @Transactional
+    public Order placeOrder(PlaceOrderDTO order) {
         List<OrderItemEntity> orderItems = order.getProducts().stream()
                 .map(productService::findByIdRaw)
                 .map(pe -> new OrderItemEntity(pe.getId(), pe.getPrice()))
@@ -32,9 +35,11 @@ public class OrderService {
 
         OrderEntity orderEntity = new OrderEntity(orderItems, order.getBuyerEmail());
         OrderEntity saved = orderRepository.save(orderEntity);
-        return saved.getId();
+
+        return Order.fromEntity(saved);
     }
 
+    @Transactional
     public List<Order> retrieveOrders(DateTime from, DateTime to) {
         return orderRepository.findByCreatedBetween(from, to).stream()
                 .map(Order::fromEntity)
