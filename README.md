@@ -52,4 +52,12 @@ Application doesn't store any state into the JVM, so scaling is not an issue. JW
 authentication provides also stateless authentication.
 
 
+#### Issues
+I failed to set-up transaction manager within application to ensure that 
+database state is cleared after each Unit test marked with @Transactional. This would lead to proper context cleaning
+ and would solve the incremental database state issues (which breaks my tests for now).
+ I would indeed find a proper solution, but it would take me some time 
+ and I think that it is important to showoff skills rather then implement
+ unreadable solutions.
+
 
