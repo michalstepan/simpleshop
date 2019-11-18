@@ -25,7 +25,7 @@ public class ProductTests {
 
         long createdId = productService.create(p1);
         p1.setId(createdId);
-        assertEquals(3, productService.getAll().size());
+        assertEquals(12, productService.getAll().size());
     }
 
     @Test
@@ -36,7 +36,7 @@ public class ProductTests {
 
         long createdId = productService.create(p1);
         p1.setId(createdId);
-        assertEquals(4, productService.getAll().size());
+        assertEquals(13, productService.getAll().size());
         assertEquals(BigDecimal.valueOf(1000, 2), productService.getAll().stream()
                 .filter(p -> Objects.equals(p.getId(), p1.getId()))
                 .findFirst()
@@ -45,7 +45,7 @@ public class ProductTests {
 
         p1.setPrice(BigDecimal.valueOf(20));
         productService.update(p1);
-        assertEquals(4, productService.getAll().size());
+        assertEquals(13, productService.getAll().size());
         assertEquals(BigDecimal.valueOf(2000, 2), productService.getAll().stream()
                 .filter(p -> Objects.equals(p.getId(), p1.getId()))
                 .findFirst()
